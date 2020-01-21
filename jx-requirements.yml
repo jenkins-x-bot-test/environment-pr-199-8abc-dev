@@ -1,40 +1,101 @@
 autoUpdate:
   enabled: true
-  schedule: '0 0 * * *'
+  schedule: 0 0 * * *
+bootConfigURL: https://github.com/cloudbees/arcalos-boot-config.git
 cluster:
-  clusterName: ""
-  environmentGitOwner: ""
-  project: ""
+  azure: {}
+  clusterName: pr-199-8abc
+  environmentGitOwner: jenkins-x-bot-test
+  environmentGitPublic: true
+  externalDNSSAName: pr-199-8abc-dn
+  gitKind: github
+  gitName: github
+  gitPublic: true
+  gitServer: https://github.com
+  gke:
+    projectNumber: "703338031374"
+  kanikoSAName: pr-199-8abc-ko
+  namespace: jx
+  project: cbjx-pr-199-8abc
   provider: gke
-  zone: ""
-gitops: true
+  registry: gcr.io
+  vaultName: pr-199-8abc
+  vaultSAName: pr-199-8abc-vt
+  zone: us-east1-c
+environments:
+- ingress:
+    cloud_dns_secret_name: external-dns-gcp-sa
+    domain: cbjx-pr-199-8abc.staging-jxaas.live
+    domainIssuerURL: https://jx-tenant-service-jx.aps-hornberyl.staging-jxaas.live
+    externalDNS: true
+    namespaceSubDomain: -jx.
+    tls:
+      email: jenkins-x@cloudbees.com
+      enabled: true
+      production: false
+  key: dev
+- ingress:
+    domain: ""
+    externalDNS: false
+    namespaceSubDomain: ""
+    tls:
+      email: ""
+      enabled: false
+      production: false
+  key: staging
+- ingress:
+    domain: ""
+    externalDNS: false
+    namespaceSubDomain: ""
+    tls:
+      email: ""
+      enabled: false
+      production: false
+  key: production
 githubApp:
   enabled: false
-  url: ""
-  schedule: '0 0 * * *'
-environments:
-- key: dev
-- key: staging
-- key: production
+  schedule: 0 0 * * *
+  url: https://lighthouse-githubapp-jx.aps-hornberyl.staging-jxaas.live
+gitops: true
 ingress:
-  domain: ""
+  cloud_dns_secret_name: external-dns-gcp-sa
+  domain: cbjx-pr-199-8abc.staging-jxaas.live
+  domainIssuerURL: https://jx-tenant-service-jx.aps-hornberyl.staging-jxaas.live
   externalDNS: true
+  namespaceSubDomain: -jx.
   tls:
     email: jenkins-x@cloudbees.com
     enabled: true
     production: false
 kaniko: true
+repository: nexus
 secretStorage: vault
 storage:
+  backup:
+    enabled: true
+    url: gs://cbjx-pr-199-8abc-backup
   logs:
-    enabled: false
-    url: ""
+    enabled: true
+    url: gs://cbjx-pr-199-8abc-lts
   reports:
     enabled: false
     url: ""
   repository:
     enabled: false
     url: ""
+vault:
+  aws: {}
+  bucket: cbjx-pr-199-8abc-vault
+  key: pr-199-8abc-crypto-key
+  keyring: pr-199-8abc-keyring
+  name: pr-199-8abc
+  serviceAccount: pr-199-8abc-vt
 velero:
   namespace: velero
+  schedule: ""
+  serviceAccount: pr-199-8abc-vo
+  ttl: ""
+versionStream:
+  ref: v0.0.261
+  url: https://github.com/cloudbees/arcalos-jenkins-x-versions.git
 webhook: prow
